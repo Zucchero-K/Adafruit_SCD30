@@ -88,20 +88,23 @@ bool Adafruit_SCD30::begin(uint8_t i2c_address, TwoWire *wire,
  *   @returns True if chip identified and initialized
  */
 bool Adafruit_SCD30::_init(int32_t sensor_id) {
-
+  Serial.println("Initializing Zucchero's library variant.");
   _sensorid_humidity = sensor_id;
   _sensorid_temp = sensor_id + 1;
 
-  reset();
+  //reset();
 
   // first I2C xfer after reset can fail, double tapping seems to get by it
   if (!startContinuousMeasurement()) {
     if (!startContinuousMeasurement())
       return false;
   }
+
+  /*
   if (!setMeasurementInterval(2)) {
     return false;
   }
+  */
   humidity_sensor = new Adafruit_SCD30_Humidity(this);
   temp_sensor = new Adafruit_SCD30_Temp(this);
   return true;
